@@ -1,0 +1,32 @@
+description: Template to deploy six nodes for OpenShift
+
+heat_template_version: '2016-10-14'
+resources:
+  masters:
+    type: OS::Heat::ResourceGroup
+    properties:
+      count: 3
+      resource_def:
+        type: node.yaml
+        properties:
+          index: "%index%"
+          instance_type: "master"
+  nodes:
+    type: OS::Heat::ResourceGroup
+    properties:
+      count: 3
+      resource_def:
+        type: node.yaml
+        properties:
+          index: "%index%"
+          instance_type: "node"
+  jumps:
+    type: OS::Heat::ResourceGroup
+    properties:
+      count: 1
+      resource_def:
+        type: node.yaml
+        properties:
+          index: "%index%"
+          instance_type: "jump"
+
